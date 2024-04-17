@@ -9,8 +9,8 @@ class ProfileManager {
     this.users.push(userInfo);
   }
 
-  removeUser(userId) {
-    const userWeNeed = this.users[userId];
+  removeUser(id) {
+    const userWeNeed = this.users[id];
     this.users = _.without(this.users, userWeNeed);
   }
 
@@ -29,6 +29,18 @@ class ProfileManager {
     });
 
     return filterByName[0];
+  }
+
+  updateUser(id, infoToUpdate) {
+    const userWeNeed = this.users[id];
+    const infoToUpdateEntries = Object.entries(infoToUpdate);
+    infoToUpdateEntries.map((user) => {
+      const key = user[0];
+      const value = user[1];
+      userWeNeed[key] = value;
+      this.users[id] = userWeNeed;
+      return 0;
+    });
   }
 }
 
