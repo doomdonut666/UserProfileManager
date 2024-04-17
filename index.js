@@ -1,16 +1,18 @@
 import _ from 'lodash';
 
-class ProfileManager {
+class UserProfileManager {
   constructor() {
     this.users = [];
   }
 
   addUser(userInfo) {
     this.users.push(userInfo);
+    const index = this.users.indexOf(userInfo);
+    this.users[index].id = index + 1;
   }
 
   removeUser(id) {
-    const userWeNeed = this.users[id];
+    const userWeNeed = this.users.find((user) => user.id === id);
     this.users = _.without(this.users, userWeNeed);
   }
 
@@ -32,16 +34,17 @@ class ProfileManager {
   }
 
   updateUser(id, infoToUpdate) {
-    const userWeNeed = this.users[id];
+    const userWeNeed = this.users.find((user) => user.id === id);
     const infoToUpdateEntries = Object.entries(infoToUpdate);
     infoToUpdateEntries.map((user) => {
       const key = user[0];
       const value = user[1];
       userWeNeed[key] = value;
-      this.users[id] = userWeNeed;
+      const index = this.users.indexOf(userWeNeed);
+      this.users[index] = userWeNeed;
       return 0;
     });
   }
 }
 
-export default ProfileManager;
+export default UserProfileManager;
